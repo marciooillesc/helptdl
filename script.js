@@ -1,10 +1,10 @@
+// Lista de cidades do Paraná (Apenas algumas principais para o exemplo)
 const cidadesPR = [
-    "Abatiá", "Adrianópolis", "Agudos do Sul", "Almirante Tamandaré", "Altamira do Paraná", 
-    "Alto Paraíso", "Alto Paraná", "Alto Piquiri", "Altônia", "Alvorada do Sul", 
-    "Apucarana", "Arapongas", "Araucária", "Cascavel", "Colombo", "Curitiba", 
-    "Foz do Iguaçu", "Guaratuba", "Londrina", "Maringá", "Paranaguá", "Ponta Grossa", 
-    "São José dos Pinhais", "Toledo", "Umuarama"
-]; // Lista resumida para exemplo, pode adicionar as 399 aqui.
+    "Almirante Tamandaré", "Apucarana", "Arapongas", "Araucária", "Cambé", "Campo Largo", 
+    "Cascavel", "Cianorte", "Colombo", "Curitiba", "Fazenda Rio Grande", "Foz do Iguaçu", 
+    "Guarapuava", "Irati", "Londrina", "Maringá", "Paranaguá", "Paranavaí", "Pato Branco", 
+    "Pinhais", "Piraquara", "Ponta Grossa", "São José dos Pinhais", "Sarandi", "Toledo", "Umuarama"
+];
 
 const icons = [
     { icon: "💧", text: "Água", speak: "Eu quero água" },
@@ -21,7 +21,8 @@ document.getElementById('login-form').onsubmit = (e) => {
     const cpf = document.getElementById('login-cpf').value;
     const senha = document.getElementById('login-senha').value;
 
-    if(cpf === "073.565.319-41" && senha === "123") {
+    // Verificação com as suas novas credenciais
+    if(cpf === "07356531941" && senha === "help123") {
         document.getElementById('login-modal').style.display = 'none';
         document.getElementById('selection-screen').style.display = 'flex';
     } else {
@@ -37,14 +38,14 @@ function carregarCidades() {
     if (estado === "PR") {
         cidadesPR.forEach(cidade => {
             let opt = document.createElement('option');
-            opt.value = cidade.toLowerCase();
+            opt.value = cidade.toLowerCase().replace(/ /g, "-");
             opt.textContent = cidade;
             cidadeSelect.appendChild(opt);
         });
     } else if (estado !== "") {
         let opt = document.createElement('option');
-        opt.value = "outra";
-        opt.textContent = "Cidade de outro estado (Exemplo)";
+        opt.value = "demo";
+        opt.textContent = "Unidade de Demonstração";
         cidadeSelect.appendChild(opt);
     }
 }
@@ -55,10 +56,10 @@ function carregarEscolas() {
     escolaSelect.innerHTML = '<option value="">Selecione a Escola...</option>';
     
     if (cidade) {
-        for(let i=1; i<=2; i++) {
+        for(let i=1; i<=3; i++) {
             let opt = document.createElement('option');
             opt.value = "escola-" + i;
-            opt.textContent = "Escola Municipal " + i;
+            opt.textContent = "Escola Municipal Exemplo " + i;
             escolaSelect.appendChild(opt);
         }
     }
@@ -66,7 +67,7 @@ function carregarEscolas() {
 
 function entrarNaEscola() {
     const escola = document.getElementById('select-escola');
-    if (!escola.value) return alert("Selecione a unidade escolar!");
+    if (!escola.value) return alert("Por favor, selecione uma escola!");
 
     document.getElementById('selection-screen').style.display = 'none';
     document.getElementById('app-content').style.display = 'block';
@@ -89,4 +90,3 @@ function speakText(text) {
     speech.lang = "pt-BR";
     window.speechSynthesis.speak(speech);
 }
-
