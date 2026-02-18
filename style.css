@@ -1,24 +1,32 @@
 :root { --primary: #2d89ef; --dark: #1e293b; --bg: #f1f5f9; }
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-body { background: var(--bg); color: var(--dark); }
-.navbar { display: flex; justify-content: center; padding: 1.5rem; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+body { background: var(--bg); color: var(--dark); overflow-x: hidden; }
+
+.navbar { display: flex; justify-content: center; padding: 1rem; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
 .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
-.logo span { color: var(--dark); }
-.selection-overlay { height: 85vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.selection-box { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); width: 100%; max-width: 480px; text-align: center; }
-.badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; margin-bottom: 15px; }
-.selectors select { width: 100%; padding: 14px; margin: 8px 0; border-radius: 10px; border: 2px solid #e2e8f0; font-size: 1rem; }
-.btn-main { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
-.btn-main:hover { background: #1b6cc1; transform: translateY(-2px); }
-#icons-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; padding: 20px 5% 60px; max-width: 1200px; margin: 0 auto; }
-.icon-card { background: white; padding: 30px; border-radius: 20px; text-align: center; cursor: pointer; border: 2px solid #e2e8f0; position: relative; transition: 0.3s; }
-.icon-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-.admin-actions { position: absolute; top: 10px; right: 10px; display: flex; gap: 5px; }
-.btn-edit, .btn-del { border: none; padding: 4px 8px; border-radius: 5px; font-size: 12px; cursor: pointer; }
-.btn-edit { background: #e2e8f0; color: #475569; }
-.btn-del { background: #fee2e2; color: #ef4444; }
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; justify-content: center; align-items: center; }
-.modal-content { background: white; padding: 40px; border-radius: 24px; width: 350px; text-align: center; }
-.modal-content input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
-.app-header-info { background: #cbd5e1; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: bold; }
+
+/* Avatar e Balão */
+.avatar-container { text-align: center; padding: 30px 20px; }
+.avatar-emoji { font-size: 100px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.avatar-animar { transform: scale(1.3) translateY(-15px); }
+.speech-bubble { 
+    background: white; padding: 15px 25px; border-radius: 25px; 
+    display: inline-block; margin-top: 15px; font-weight: 800;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid var(--primary);
+}
+
+.selection-overlay { height: 80vh; display: flex; align-items: center; justify-content: center; }
+.selection-box { background: white; padding: 40px; border-radius: 24px; width: 450px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+.selectors select, input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 2px solid #eee; font-size: 1rem; }
+
+#icons-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; padding: 20px 5% 50px; max-width: 1200px; margin: 0 auto; }
+.icon-card { background: white; padding: 25px; border-radius: 20px; text-align: center; cursor: pointer; border: 2px solid #eee; position: relative; transition: 0.2s; }
+.icon-card:hover { border-color: var(--primary); transform: scale(1.05); }
+
+.btn-main { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
 .btn-exit { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; }
+.modal-content { background: white; padding: 30px; border-radius: 20px; width: 400px; text-align: center; }
+.emoji-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; max-height: 120px; overflow-y: auto; margin: 15px 0; border: 1px solid #eee; padding: 10px; }
+.btn-del { position: absolute; top: 5px; right: 5px; background: #fee2e2; color: #ef4444; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; font-size: 10px; }
