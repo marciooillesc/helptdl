@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help TDL | Paranaguá Administrador</title>
+    <title>Help TDL | Painel Completo</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
@@ -45,25 +45,41 @@
         <div class="app-header-info">
             <span id="escola-tag"></span>
             <div>
-                <button id="btn-admin-add" class="btn-main" style="padding: 8px 15px; font-size: 0.8rem; display: none;" onclick="adicionarCard()">+ Novo Botão</button>
+                <button class="btn-main" style="padding: 8px 15px; font-size: 0.8rem;" onclick="abrirModalPersonalizar()">+ Novo Botão</button>
                 <button class="btn-exit" onclick="window.location.reload()">Sair</button>
             </div>
         </div>
-        <div class="app-title">
-            <h2 id="titulo-painel">Comunicação Assistiva</h2>
-            <p id="subtitulo-painel">Painel personalizado para a educação especial.</p>
+
+        <div class="avatar-container">
+            <div id="avatar-display" class="avatar-emoji">🙋‍♂️</div>
+            <div id="balao-texto" class="speech-bubble">Olá! Vamos conversar?</div>
         </div>
+
         <main id="icons-container"></main>
     </section>
 
     <div id="login-modal" class="modal" style="display: flex;">
         <div class="modal-content">
             <h3>Login do Tutor</h3>
+            <p>Simulação: Digite qualquer dado para entrar.</p>
             <form id="login-form">
                 <input type="text" id="login-cpf" placeholder="CPF" value="07356531941">
                 <input type="password" id="login-senha" placeholder="Senha" value="help123">
                 <button type="submit" class="btn-main">Entrar no Sistema</button>
             </form>
+        </div>
+    </div>
+
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <h3>Criar Comando Personalizado</h3>
+            <p>Escolha o ícone do botão:</p>
+            <div id="biblioteca-emojis" class="emoji-grid"></div>
+            <input type="hidden" id="custom-icon">
+            <input type="text" id="custom-text" placeholder="Nome do Botão">
+            <input type="text" id="custom-speak" placeholder="Frase que o bonequinho vai falar">
+            <button class="btn-main" onclick="salvarNovoCard()">Criar Botão</button>
+            <button onclick="fecharModal()" class="btn-exit" style="width:100%; margin-top:10px;">Cancelar</button>
         </div>
     </div>
 
