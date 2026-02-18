@@ -6,12 +6,19 @@ let icons = [
     { icon: "🧸", text: "Brincar", speak: "Eu quero brincar" }
 ];
 
-const cidadesPR = ["Paranaguá", "Curitiba", "Londrina", "Maringá", "Cascavel", "Ponta Grossa", "Foz do Iguaçu"];
+const cidadesPR = ["Paranaguá", "Curitiba", "Londrina", "Cascavel"];
 
-// Login Simulado - Aceita tudo e ativa Admin
+const escolasParanagua = [
+    "Escola M. Almirante Tamandaré", "Escola M. Anibal Ribeiro Filho", 
+    "Escola M. Castelo Branco", "Escola M. Eva Cavani", 
+    "Escola M. Leocádia de Oliveira", "CMEI Agostinho Sant'Ana", 
+    "CMEI Alcebíades de Oliveira", "CMEI Anita de Castro", 
+    "CMEI Aracy de Oliveira", "CMEI Cleide Maria Portela"
+];
+
 document.getElementById('login-form').onsubmit = (e) => {
     e.preventDefault();
-    isAdmin = true; 
+    isAdmin = true; // Libera modo edição
     document.getElementById('login-modal').style.display = 'none';
     document.getElementById('selection-screen').style.display = 'flex';
 };
@@ -20,7 +27,6 @@ function carregarCidades() {
     const estado = document.getElementById('select-estado').value;
     const cidadeSelect = document.getElementById('select-cidade');
     cidadeSelect.innerHTML = '<option value="">Selecione a Cidade...</option>';
-    
     if (estado === "PR") {
         cidadesPR.forEach(c => {
             let opt = document.createElement('option');
@@ -32,23 +38,36 @@ function carregarCidades() {
 }
 
 function carregarEscolas() {
+    const cidade = document.getElementById('select-cidade').value;
     const escolaSelect = document.getElementById('select-escola');
-    escolaSelect.innerHTML = '<option value="">Selecione a Escola...</option>';
-    for(let i=1; i<=3; i++) {
+    escolaSelect.innerHTML = '<option value="">Selecione a Unidade...</option>';
+    
+    if (cidade === "paranagua") {
+        escolasParanagua.forEach(e => {
+            let opt = document.createElement('option');
+            opt.value = e;
+            opt.textContent = e;
+            escolaSelect.appendChild(opt);
+        });
+    } else if (cidade) {
         let opt = document.createElement('option');
-        opt.value = i;
-        opt.textContent = "Escola Municipal " + i;
+        opt.value = "demo";
+        opt.textContent = "Unidade Padrão";
         escolaSelect.appendChild(opt);
     }
 }
 
 function entrarNaEscola() {
+    const unidade = document.getElementById('select-escola').value;
+    if(!unidade) return alert("Selecione a unidade escolar!");
+
     document.getElementById('selection-screen').style.display = 'none';
     document.getElementById('app-content').style.display = 'block';
+    document.getElementById('escola-tag').innerText = `UNIDADE: ${unidade}`;
     
     if(isAdmin) {
         document.getElementById('btn-admin-add').style.display = 'inline-block';
-        document.getElementById('titulo-boas-vindas').innerText = "Modo Administrador";
+        document.getElementById('titulo-painel').innerText = "Painel do Professor - Modo Edição";
     }
     renderizarCards();
 }
@@ -56,31 +75,26 @@ function entrarNaEscola() {
 function renderizarCards() {
     const container = document.getElementById("icons-container");
     container.innerHTML = "";
-    
     icons.forEach((item, index) => {
         const card = document.createElement("div");
-        card.className = isAdmin ? "icon-card edit-mode-active" : "icon-card";
-        
+        card.className = "icon-card";
         card.innerHTML = `
+            <div class="admin-actions">
+                <button class="btn-edit" onclick="editarCard(${index}, event)">✎</button>
+                <button class="btn-del" onclick="excluirCard(${index}, event)">✖</button>
+            </div>
             <span style="font-size: 3.5rem; display:block; margin-bottom:10px;">${item.icon}</span>
             <strong>${item.text}</strong>
-            ${isAdmin ? `
-                <div class="admin-controls">
-                    <button class="btn-edit-small" onclick="editarCard(${index}, event)">✎</button>
-                    <button class="btn-del-small" onclick="excluirCard(${index}, event)">✖</button>
-                </div>
-            ` : ''}
         `;
-
         card.onclick = () => speakText(item.speak);
         container.appendChild(card);
     });
 }
 
 function adicionarCard() {
-    const emoji = prompt("Emoji (ex: 🍎):");
+    const emoji = prompt("Emoji:");
     const titulo = prompt("Título do Botão:");
-    const fala = prompt("O que deve ser falado?");
+    const fala = prompt("Frase que o sistema vai falar:");
     if(emoji && titulo && fala) {
         icons.push({ icon: emoji, text: titulo, speak: fala });
         renderizarCards();
@@ -89,18 +103,18 @@ function adicionarCard() {
 
 function editarCard(index, event) {
     event.stopPropagation();
-    const novoTexto = prompt("Novo título:", icons[index].text);
-    const novaFala = prompt("Nova fala:", icons[index].speak);
-    if(novoTexto && novaFala) {
-        icons[index].text = novoTexto;
-        icons[index].speak = novaFala;
+    const novoT = prompt("Novo título:", icons[index].text);
+    const novaF = prompt("Nova frase:", icons[index].speak);
+    if(novoT && novaF) {
+        icons[index].text = novoT;
+        icons[index].speak = novaF;
         renderizarCards();
     }
 }
 
 function excluirCard(index, event) {
     event.stopPropagation();
-    if(confirm("Excluir este card?")) {
+    if(confirm("Deseja apagar este botão?")) {
         icons.splice(index, 1);
         renderizarCards();
     }
