@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help TDL | Painel Inteligente</title>
+    <title>Help TDL | Painel Completo</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
@@ -18,7 +18,7 @@
             <div class="badge">Painel do Professor</div>
             <h2>Configurar Unidade</h2>
             <div class="selectors">
-                <input list="lista-estados" id="input-estado" placeholder="Digite o Estado (ex: PR)" oninput="verificarEstado()">
+                <input list="lista-estados" id="input-estado" placeholder="Digite o Estado (ex: Paraná)" oninput="verificarEstado()">
                 <datalist id="lista-estados">
                     <option value="Acre"> <option value="Alagoas"> <option value="Amapá"> <option value="Amazonas">
                     <option value="Bahia"> <option value="Ceará"> <option value="Distrito Federal"> <option value="Espírito Santo">
@@ -76,21 +76,25 @@
                 <button onclick="mudarAba('emoji')">Emojis</button>
                 <button onclick="mudarAba('internet')">Internet / URL</button>
             </div>
+
             <div id="aba-emoji" class="aba-content">
                 <div id="biblioteca-emojis" class="emoji-grid"></div>
             </div>
+
             <div id="aba-internet" class="aba-content" style="display:none;">
                 <input type="text" id="custom-url" placeholder="Cole a URL da imagem aqui...">
                 <div class="search-box-img">
-                    <input type="text" id="img-search-query" placeholder="Ou pesquise: Maçã, Cachorro...">
+                    <input type="text" id="img-search-query" placeholder="Ou pesquise: Maçã, Suco...">
                     <button type="button" onclick="buscarImagensReais()">🔍</button>
                 </div>
                 <div id="resultado-busca-img" class="emoji-grid"></div>
             </div>
+
             <input type="hidden" id="custom-icon">
             <input type="hidden" id="is-image-type" value="false">
             <input type="text" id="custom-text" placeholder="Nome do Botão">
             <input type="text" id="custom-speak" placeholder="Frase de voz">
+            
             <button class="btn-main" onclick="salvarNovoCard()">Criar Botão</button>
             <button onclick="fecharModal()" class="btn-exit" style="width:100%; margin-top:5px;">Cancelar</button>
         </div>
