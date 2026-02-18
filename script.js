@@ -1,33 +1,19 @@
-// Lista de cidades do Paraná (Apenas algumas principais para o exemplo)
-const cidadesPR = [
-    "Almirante Tamandaré", "Apucarana", "Arapongas", "Araucária", "Cambé", "Campo Largo", 
-    "Cascavel", "Cianorte", "Colombo", "Curitiba", "Fazenda Rio Grande", "Foz do Iguaçu", 
-    "Guarapuava", "Irati", "Londrina", "Maringá", "Paranaguá", "Paranavaí", "Pato Branco", 
-    "Pinhais", "Piraquara", "Ponta Grossa", "São José dos Pinhais", "Sarandi", "Toledo", "Umuarama"
-];
-
-const icons = [
+let isAdmin = false;
+let icons = [
     { icon: "💧", text: "Água", speak: "Eu quero água" },
     { icon: "🚽", text: "Banheiro", speak: "Quero ir ao banheiro" },
     { icon: "🍽️", text: "Comer", speak: "Eu quero comer" },
-    { icon: "🧸", text: "Brincar", speak: "Eu quero brincar" },
-    { icon: "😴", text: "Dormir", speak: "Estou com sono" },
-    { icon: "🤕", text: "Ajuda", speak: "Preciso de ajuda" }
+    { icon: "🧸", text: "Brincar", speak: "Eu quero brincar" }
 ];
 
-// Lógica de Login
+const cidadesPR = ["Paranaguá", "Curitiba", "Londrina", "Maringá", "Cascavel", "Ponta Grossa", "Foz do Iguaçu"];
+
+// Login Simulado - Aceita tudo e ativa Admin
 document.getElementById('login-form').onsubmit = (e) => {
     e.preventDefault();
-    const cpf = document.getElementById('login-cpf').value;
-    const senha = document.getElementById('login-senha').value;
-
-    // Verificação com as suas novas credenciais
-    if(cpf === "07356531941" && senha === "help123") {
-        document.getElementById('login-modal').style.display = 'none';
-        document.getElementById('selection-screen').style.display = 'flex';
-    } else {
-        alert("Acesso Negado: CPF ou Senha incorretos.");
-    }
+    isAdmin = true; 
+    document.getElementById('login-modal').style.display = 'none';
+    document.getElementById('selection-screen').style.display = 'flex';
 };
 
 function carregarCidades() {
@@ -36,52 +22,88 @@ function carregarCidades() {
     cidadeSelect.innerHTML = '<option value="">Selecione a Cidade...</option>';
     
     if (estado === "PR") {
-        cidadesPR.forEach(cidade => {
+        cidadesPR.forEach(c => {
             let opt = document.createElement('option');
-            opt.value = cidade.toLowerCase().replace(/ /g, "-");
-            opt.textContent = cidade;
+            opt.value = c.toLowerCase();
+            opt.textContent = c;
             cidadeSelect.appendChild(opt);
         });
-    } else if (estado !== "") {
-        let opt = document.createElement('option');
-        opt.value = "demo";
-        opt.textContent = "Unidade de Demonstração";
-        cidadeSelect.appendChild(opt);
     }
 }
 
 function carregarEscolas() {
-    const cidade = document.getElementById('select-cidade').value;
     const escolaSelect = document.getElementById('select-escola');
     escolaSelect.innerHTML = '<option value="">Selecione a Escola...</option>';
-    
-    if (cidade) {
-        for(let i=1; i<=3; i++) {
-            let opt = document.createElement('option');
-            opt.value = "escola-" + i;
-            opt.textContent = "Escola Municipal Exemplo " + i;
-            escolaSelect.appendChild(opt);
-        }
+    for(let i=1; i<=3; i++) {
+        let opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = "Escola Municipal " + i;
+        escolaSelect.appendChild(opt);
     }
 }
 
 function entrarNaEscola() {
-    const escola = document.getElementById('select-escola');
-    if (!escola.value) return alert("Por favor, selecione uma escola!");
-
     document.getElementById('selection-screen').style.display = 'none';
     document.getElementById('app-content').style.display = 'block';
-    document.getElementById('escola-tag').innerText = `UNIDADE: ${escola.options[escola.selectedIndex].text}`;
     
+    if(isAdmin) {
+        document.getElementById('btn-admin-add').style.display = 'inline-block';
+        document.getElementById('titulo-boas-vindas').innerText = "Modo Administrador";
+    }
+    renderizarCards();
+}
+
+function renderizarCards() {
     const container = document.getElementById("icons-container");
     container.innerHTML = "";
-    icons.forEach(item => {
+    
+    icons.forEach((item, index) => {
         const card = document.createElement("div");
-        card.className = "icon-card";
-        card.innerHTML = `<span style="font-size: 3.5rem; display:block; margin-bottom:10px;">${item.icon}</span><strong>${item.text}</strong>`;
+        card.className = isAdmin ? "icon-card edit-mode-active" : "icon-card";
+        
+        card.innerHTML = `
+            <span style="font-size: 3.5rem; display:block; margin-bottom:10px;">${item.icon}</span>
+            <strong>${item.text}</strong>
+            ${isAdmin ? `
+                <div class="admin-controls">
+                    <button class="btn-edit-small" onclick="editarCard(${index}, event)">✎</button>
+                    <button class="btn-del-small" onclick="excluirCard(${index}, event)">✖</button>
+                </div>
+            ` : ''}
+        `;
+
         card.onclick = () => speakText(item.speak);
         container.appendChild(card);
     });
+}
+
+function adicionarCard() {
+    const emoji = prompt("Emoji (ex: 🍎):");
+    const titulo = prompt("Título do Botão:");
+    const fala = prompt("O que deve ser falado?");
+    if(emoji && titulo && fala) {
+        icons.push({ icon: emoji, text: titulo, speak: fala });
+        renderizarCards();
+    }
+}
+
+function editarCard(index, event) {
+    event.stopPropagation();
+    const novoTexto = prompt("Novo título:", icons[index].text);
+    const novaFala = prompt("Nova fala:", icons[index].speak);
+    if(novoTexto && novaFala) {
+        icons[index].text = novoTexto;
+        icons[index].speak = novaFala;
+        renderizarCards();
+    }
+}
+
+function excluirCard(index, event) {
+    event.stopPropagation();
+    if(confirm("Excluir este card?")) {
+        icons.splice(index, 1);
+        renderizarCards();
+    }
 }
 
 function speakText(text) {
