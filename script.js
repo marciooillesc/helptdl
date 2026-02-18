@@ -21,7 +21,7 @@ document.getElementById('login-form').onsubmit = (e) => {
     const cpf = document.getElementById('login-cpf').value;
     const senha = document.getElementById('login-senha').value;
 
-    if(cpf === "073.565.319-41" && senha === "help123") {
+    if(cpf === "073.565.319-41" && senha === "123") {
         document.getElementById('login-modal').style.display = 'none';
         document.getElementById('selection-screen').style.display = 'flex';
     } else {
@@ -89,3 +89,4 @@ function speakText(text) {
     speech.lang = "pt-BR";
     window.speechSynthesis.speak(speech);
 }
+
