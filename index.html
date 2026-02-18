@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help TDL | Gestão Escolar Paranaguá</title>
+    <title>Help TDL | Paranaguá Administrador</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
@@ -16,48 +16,27 @@
     <section class="selection-overlay" id="selection-screen" style="display: none;">
         <div class="selection-box">
             <div class="badge">Painel do Professor</div>
-            <h2>Configurar Turma</h2>
+            <h2>Configurar Unidade</h2>
             <div class="selectors">
                 <select id="select-estado" onchange="carregarCidades()">
                     <option value="">Selecione o Estado...</option>
-                    <option value="AC">Acre</option>
-                    <option value="AL">Alagoas</option>
-                    <option value="AP">Amapá</option>
-                    <option value="AM">Amazonas</option>
-                    <option value="BA">Bahia</option>
-                    <option value="CE">Ceará</option>
-                    <option value="DF">Distrito Federal</option>
-                    <option value="ES">Espírito Santo</option>
-                    <option value="GO">Goiás</option>
-                    <option value="MA">Maranhão</option>
-                    <option value="MT">Mato Grosso</option>
-                    <option value="MS">Mato Grosso do Sul</option>
-                    <option value="MG">Minas Gerais</option>
-                    <option value="PA">Pará</option>
-                    <option value="PB">Paraíba</option>
-                    <option value="PR">Paraná</option>
-                    <option value="PE">Pernambuco</option>
-                    <option value="PI">Piauí</option>
-                    <option value="RJ">Rio de Janeiro</option>
-                    <option value="RN">Rio Grande do Norte</option>
-                    <option value="RS">Rio Grande do Sul</option>
-                    <option value="RO">Rondônia</option>
-                    <option value="RR">Roraima</option>
-                    <option value="SC">Santa Catarina</option>
-                    <option value="SP">São Paulo</option>
-                    <option value="SE">Sergipe</option>
-                    <option value="TO">Tocantins</option>
+                    <option value="AC">Acre</option> <option value="AL">Alagoas</option> <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option> <option value="BA">Bahia</option> <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option> <option value="ES">Espírito Santo</option> <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option> <option value="MT">Mato Grosso</option> <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option> <option value="PA">Pará</option> <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option> <option value="PE">Pernambuco</option> <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option> <option value="RN">Rio Grande do Norte</option> <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option> <option value="RR">Roraima</option> <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option> <option value="SE">Sergipe</option> <option value="TO">Tocantins</option>
                 </select>
-
                 <select id="select-cidade" onchange="carregarEscolas()">
                     <option value="">Selecione a Cidade...</option>
                 </select>
-
                 <select id="select-escola">
-                    <option value="">Selecione a Escola ou CMEI...</option>
+                    <option value="">Selecione a Unidade Escola/CMEI...</option>
                 </select>
-
-                <button class="btn-main" onclick="entrarNaEscola()">Ativar Painel Assistivo</button>
+                <button class="btn-main" onclick="entrarNaEscola()">Acessar Painel</button>
             </div>
         </div>
     </section>
@@ -66,13 +45,13 @@
         <div class="app-header-info">
             <span id="escola-tag"></span>
             <div>
-                <button id="btn-admin-add" class="btn-main" style="padding: 8px 15px; font-size: 0.8rem;" onclick="adicionarCard()">+ Novo Botão</button>
+                <button id="btn-admin-add" class="btn-main" style="padding: 8px 15px; font-size: 0.8rem; display: none;" onclick="adicionarCard()">+ Novo Botão</button>
                 <button class="btn-exit" onclick="window.location.reload()">Sair</button>
             </div>
         </div>
         <div class="app-title">
-            <h2 id="titulo-painel">Comunicação Alternativa</h2>
-            <p id="subtitulo-painel">Personalize as frases conforme a necessidade do aluno.</p>
+            <h2 id="titulo-painel">Comunicação Assistiva</h2>
+            <p id="subtitulo-painel">Painel personalizado para a educação especial.</p>
         </div>
         <main id="icons-container"></main>
     </section>
@@ -80,7 +59,6 @@
     <div id="login-modal" class="modal" style="display: flex;">
         <div class="modal-content">
             <h3>Login do Tutor</h3>
-            <p>Acesso liberado para simulação de projeto.</p>
             <form id="login-form">
                 <input type="text" id="login-cpf" placeholder="CPF" value="07356531941">
                 <input type="password" id="login-senha" placeholder="Senha" value="help123">
