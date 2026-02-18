@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help TDL | Painel Completo</title>
+    <title>Help TDL | Painel Corrigido</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
@@ -18,25 +18,21 @@
             <div class="badge">Painel do Professor</div>
             <h2>Configurar Unidade</h2>
             <div class="selectors">
-                <input list="lista-estados" id="input-estado" placeholder="Digite o Estado (ex: Paraná)" oninput="verificarEstado()">
+                <input list="lista-estados" id="input-estado-busca" placeholder="Digite o Estado (ex: Paraná)" oninput="verificarEstado()">
                 <datalist id="lista-estados">
-                    <option value="Acre"> <option value="Alagoas"> <option value="Amapá"> <option value="Amazonas">
-                    <option value="Bahia"> <option value="Ceará"> <option value="Distrito Federal"> <option value="Espírito Santo">
-                    <option value="Goiás"> <option value="Maranhão"> <option value="Mato Grosso"> <option value="Mato Grosso do Sul">
-                    <option value="Minas Gerais"> <option value="Pará"> <option value="Paraíba"> <option value="Paraná">
-                    <option value="Pernambuco"> <option value="Piauí"> <option value="Rio de Janeiro"> <option value="Rio Grande do Norte">
-                    <option value="Rio Grande do Sul"> <option value="Rondônia"> <option value="Roraima"> <option value="Santa Catarina">
-                    <option value="São Paulo"> <option value="Sergipe"> <option value="Tocantins">
+                    <option value="Paraná">
+                    <option value="Santa Catarina">
+                    <option value="São Paulo">
                 </datalist>
 
-                <input list="lista-cidades" id="input-cidade" placeholder="Digite a Cidade..." oninput="verificarCidade()" disabled>
+                <input list="lista-cidades" id="input-cidade-busca" placeholder="Digite a Cidade..." oninput="verificarCidade()" disabled>
                 <datalist id="lista-cidades"></datalist>
 
-                <select id="select-escola" disabled>
+                <select id="select-escola-final" disabled>
                     <option value="">Selecione a Unidade Escola/CMEI...</option>
                 </select>
 
-                <button class="btn-main" id="btn-acessar" onclick="entrarNaEscola()" disabled>Acessar Painel</button>
+                <button class="btn-main" id="btn-entrar-painel" onclick="entrarNaEscola()" disabled>Acessar Painel</button>
             </div>
         </div>
     </section>
@@ -64,7 +60,7 @@
             <form id="login-form">
                 <input type="text" id="login-cpf" placeholder="CPF" value="07356531941">
                 <input type="password" id="login-senha" placeholder="Senha" value="help123">
-                <button type="submit" class="btn-main">Entrar no Sistema</button>
+                <button type="submit" class="btn-main">Entrar</button>
             </form>
         </div>
     </div>
@@ -78,25 +74,26 @@
             </div>
 
             <div id="aba-emoji" class="aba-content">
-                <div id="biblioteca-emojis" class="emoji-grid"></div>
+                <div id="biblioteca-emojis-grid" class="emoji-grid"></div>
             </div>
 
             <div id="aba-internet" class="aba-content" style="display:none;">
-                <input type="text" id="custom-url" placeholder="Cole a URL da imagem aqui...">
+                <input type="text" id="url-manual-input" placeholder="Cole a URL da imagem aqui...">
+                <p style="font-size: 11px; margin: 5px 0;">Ou pesquise uma imagem:</p>
                 <div class="search-box-img">
-                    <input type="text" id="img-search-query" placeholder="Ou pesquise: Maçã, Suco...">
-                    <button type="button" onclick="buscarImagensReais()">🔍</button>
+                    <input type="text" id="busca-foto-query" placeholder="O que você procura?">
+                    <button type="button" onclick="executarBuscaFoto()">🔍</button>
                 </div>
-                <div id="resultado-busca-img" class="emoji-grid"></div>
+                <div id="resultados-foto-grid" class="emoji-grid"></div>
             </div>
 
-            <input type="hidden" id="custom-icon">
-            <input type="hidden" id="is-image-type" value="false">
-            <input type="text" id="custom-text" placeholder="Nome do Botão">
-            <input type="text" id="custom-speak" placeholder="Frase de voz">
+            <input type="hidden" id="hidden-icon-val">
+            <input type="hidden" id="hidden-is-img-bool" value="false">
+            <input type="text" id="input-titulo-botao" placeholder="Nome do Botão">
+            <input type="text" id="input-fala-botao" placeholder="Frase de voz">
             
-            <button class="btn-main" onclick="salvarNovoCard()">Criar Botão</button>
-            <button onclick="fecharModal()" class="btn-exit" style="width:100%; margin-top:5px;">Cancelar</button>
+            <button class="btn-main" onclick="confirmarNovoBotao()">Criar Botão</button>
+            <button onclick="fecharModalPersonalizar()" class="btn-exit" style="width:100%; margin-top:5px;">Cancelar</button>
         </div>
     </div>
 
