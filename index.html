@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help TDL | Simulação Administrador</title>
+    <title>Help TDL | Gestão Escolar Paranaguá</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
@@ -15,8 +15,8 @@
 
     <section class="selection-overlay" id="selection-screen" style="display: none;">
         <div class="selection-box">
-            <div class="badge">Acesso Institucional</div>
-            <h2>Selecione a Unidade</h2>
+            <div class="badge">Painel do Professor</div>
+            <h2>Configurar Turma</h2>
             <div class="selectors">
                 <select id="select-estado" onchange="carregarCidades()">
                     <option value="">Selecione o Estado...</option>
@@ -54,10 +54,10 @@
                 </select>
 
                 <select id="select-escola">
-                    <option value="">Selecione a Escola...</option>
+                    <option value="">Selecione a Escola ou CMEI...</option>
                 </select>
 
-                <button class="btn-main" onclick="entrarNaEscola()">Acessar Painel</button>
+                <button class="btn-main" onclick="entrarNaEscola()">Ativar Painel Assistivo</button>
             </div>
         </div>
     </section>
@@ -66,23 +66,21 @@
         <div class="app-header-info">
             <span id="escola-tag"></span>
             <div>
-                <button id="btn-admin-add" class="btn-main" style="padding: 5px 15px; font-size: 0.7rem; display: none;" onclick="adicionarCard()">+ Novo Card</button>
+                <button id="btn-admin-add" class="btn-main" style="padding: 8px 15px; font-size: 0.8rem;" onclick="adicionarCard()">+ Novo Botão</button>
                 <button class="btn-exit" onclick="window.location.reload()">Sair</button>
             </div>
         </div>
-        
         <div class="app-title">
-            <h2 id="titulo-boas-vindas">Comunicação Alternativa</h2>
-            <p id="subtitulo-admin">Clique no card para ouvir.</p>
+            <h2 id="titulo-painel">Comunicação Alternativa</h2>
+            <p id="subtitulo-painel">Personalize as frases conforme a necessidade do aluno.</p>
         </div>
-
         <main id="icons-container"></main>
     </section>
 
     <div id="login-modal" class="modal" style="display: flex;">
         <div class="modal-content">
             <h3>Login do Tutor</h3>
-            <p>Simulação: Introduza qualquer dado para entrar.</p>
+            <p>Acesso liberado para simulação de projeto.</p>
             <form id="login-form">
                 <input type="text" id="login-cpf" placeholder="CPF" value="07356531941">
                 <input type="password" id="login-senha" placeholder="Senha" value="help123">
